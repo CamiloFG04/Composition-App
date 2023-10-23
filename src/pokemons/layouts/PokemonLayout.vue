@@ -20,7 +20,12 @@ const routeLinks: RouterLink[] = pokemonRoute.children?.map(({name,path,props}) 
 
 <template>
     <NavBar :links="routeLinks" is-secondary/>
-    <RouterView />
+    <!-- <Suspense> -->
+        <RouterView />
+        <!-- <template #fallback>
+            Cargando información
+        </template>
+    </Suspense> -->
 
 </template>
 
