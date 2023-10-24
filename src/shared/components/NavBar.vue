@@ -1,16 +1,21 @@
 <script lang="ts" setup>
 import type { RouterLink } from '@/router/list-routes';
+import { computed } from 'vue';
 
     interface Props {
         title?: string
         links: RouterLink[]
-        isSecondary?: boolean
+        isSecondary?: boolean,
+        
     }
 
-    withDefaults(defineProps<Props>(),{
+    const props = withDefaults(defineProps<Props>(),{
         title: 'Composition App',
         isSecondary: false
     })
+
+    // const links = toRef(props.links)
+    const links = computed(() => props.links.filter(link => link.visible))
 
 </script>
 
@@ -20,7 +25,7 @@ import type { RouterLink } from '@/router/list-routes';
             <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" />
             <span>{{ $props.title }}</span>
         </template>
-        <RouterLink v-for="route in $props.links" :key="route.name" :to="route.path">{{ route.title }}</RouterLink>
+        <RouterLink v-for="route in links" :key="route.name" :to="route.path">{{ route.title }}</RouterLink>
        
     </nav>
 </template>
